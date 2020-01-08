@@ -1,0 +1,35 @@
+/**index.wxss**/
+page{
+  font-size: 35rpx;
+  color: #333;
+}
+.group{
+  border-radius: 15px;
+  margin: 32rpx;
+  overflow: hidden;
+  box-shadow: 0 0 15rpx rgba(100, 100, 100, .2);
+}
+.group-title{
+  padding: 40rpx;
+  border-bottom: 1rpx solid #f1f1f1;
+}
+.group-title:last-child{
+  border-bottom: none;
+}
+
+.group-container{
+  
+}
+
+.group-item{
+  padding: 40rpx;
+  background: #f1f1f1;
+}
+
+.group-items{
+  overflow: hidden;
+  transition: height .3s;
+}
+.group-items.hide{
+  height: 0!important;
+}

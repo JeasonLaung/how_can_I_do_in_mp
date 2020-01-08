@@ -1,0 +1,18 @@
+/**index.wxss**/
+.cell{
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f2f2f2
+}
+.cell-item{
+  display: flex;
+}
+.cell-index{
+  border-radius: 25px;
+  height: 50px;
+  width: 50px;
+  border: 1rpx solid #aaa;
+  margin-right: 20rpx;
+  display: flex;
+  justify-content: center;
+  align-content: center
+}

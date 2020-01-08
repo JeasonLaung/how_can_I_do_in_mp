@@ -1,0 +1,36 @@
+<!--index.wxml-->
+<view>计时时间{{count}}</view>
+<view>返回次数{{count2}}</view>
+<view>
+  <button bindtap="openSetting">设置权限</button>
+</view>
+<view>
+  <button bindtap="openLocation">开始记录</button>
+</view>
+<view>
+  <button bindtap="closeLocation">关闭记录</button>
+</view>
+
+<view
+wx:key="index"
+class="cell"
+wx:for="{{locationList}}">
+  <view class="cell-item">
+    <view class="cell-index">{{index}}</view>
+    <view class="cell-value">经纬度：{{item.latitude}},{{item.latitude}}</view>
+  </view>
+  <view class="cell-item">
+    来源：{{item.provider}}
+  </view>
+  <view class="cell-item">速度：{{item.speed}}</view>
+  <view class="cell-item">海拔：{{item.altitude}}</view>
+  <view class="cell-item">方向：{{item.direction}}</view>
+  <view class="cell-item">室内：{{item.indoorLocationType}}</view>
+  <view class="cell-item">精确度：{{item.accuracy}}  垂直精确度： {{item.verticalAccuracy}}  水平精确度： {{item.horizontalAccuracy}}</view>
+  
+  <view class="cell-item">时间：{{item.time}}</view>
+
+</view>
+
+<i-message id="message"></i-message>
+<i-toast id="toast"></i-toast>

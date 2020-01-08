@@ -1,0 +1,35 @@
+<!--index.wxml-->
+<view
+class="group">
+
+  <view
+  wx:for="{{groups}}"
+  wx:key="index">
+    <view
+    data-index="{{index}}"
+    bindtap="toggleTitle"
+    class="group-title">
+      {{item.title}}
+    </view>
+    <view
+    style="height:{{item.list.length * 120}}rpx;"
+    class="group-items {{titleIndex == index ? '' : 'hide'}}">
+      <view
+      wx:for="{{item.list}}"
+      wx:key='ind'
+      wx:for-item="i"
+      bindtap="$go"
+      data-url="{{i.url || i.path}}"
+      class="group-item">
+        {{i.title}}
+      </view>
+    </view>
+    
+
+  </view>
+  
+
+</view>
+
+<i-message id="message"></i-message>
+<i-toast id="toast"></i-toast>

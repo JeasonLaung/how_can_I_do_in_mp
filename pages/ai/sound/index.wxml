@@ -1,0 +1,18 @@
+<!--index.wxml-->
+
+<button
+bindtouchstart="bindtouchstart"
+bindtouchend="bindtouchend"
+style="position:fixed;bottom:0;width: 100%"
+>
+  长按说话
+</button>
+
+<button
+wx:if="{{voice != null}}"
+bindtap="playVoice">
+播放 {{playVoiceTime ? playVoiceTime : voiceTime}} / {{voiceTime}}
+</button>
+
+<i-message id="message"></i-message>
+<i-toast id="toast"></i-toast>

@@ -1,0 +1,6 @@
+<!--index.wxml-->
+
+
+
+<i-message id="message"></i-message>
+<i-toast id="toast"></i-toast>
