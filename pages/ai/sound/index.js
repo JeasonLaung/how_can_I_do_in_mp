@@ -1,6 +1,7 @@
 //index.js
 /// 框架
 import { SPage } from '../../../utils/spage'
+import { aiSpeech } from '../../../api/ai'
 const voiceReciver = wx.getRecorderManager()
 const voicePlayer = wx.createInnerAudioContext()
 
@@ -18,7 +19,10 @@ SPage({
       format: 'mp3', //录音的格式，有aac和mp3两种   
     }
     voiceReciver.start(option); //开始录音   这么写的话，之后录音得到的数据，就是你上面写得数据。
-    wx.vibrateLong({
+    wx.showLoading({
+      title: '正在录音'
+    })
+    wx.vibrateShort({
       success(e) {
         console.log(e)
       },
@@ -31,7 +35,11 @@ SPage({
       console.log('录音开始事件') //这个方法是录音开始事件，你可以写录音开始的时候图片或者页面的变化
     })
   },
+  bindtouchcancel() {
+    
+  },
   bindtouchend(e) {
+    wx.hideLoading()
     console.log('结束')
     voiceReciver.stop();
     voiceReciver.onStop((res) => {
@@ -46,7 +54,16 @@ SPage({
       // res.tempFilePath;//是临时的文件地址
       // res.duration;//录音的时长
       // res.fileSize;//文件的大小
+
+      var soundSrc =  res.tempFilePath//base64编码
+      var fileManager = wx.getFileSystemManager()
+      var base64 = fileManager.readFileSync(soundSrc, "base64")
+      aiSpeech({speech: base64}).then(data => {
+        console.log(data)
+      })
     })
+
+    
   },
 
   playVoice() {

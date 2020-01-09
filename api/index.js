@@ -42,16 +42,16 @@ export const report = (data = {}) => {
   })
 }
 
-/// 获取orc识别token
-export const getOrcToken = () => {
+/// 获取Ai识别token
+export const getAiToken = () => {
   return new Promise((resolve, reject) => {
-    let orc = cookie.get('BAIDU_ORC_TOKEN') || {}
+    let orc = cookie.get('BAIDU_AI_TOKEN') || {}
     let now = new Date().getTime()
     if (!orc.expires || orc.expires < now) {
       axios({
-        url: '/api/baidu_orc/getToken'
+        url: '/api/baidu_ai_token'
       }).then((data) => {
-        cookie.set('BAIDU_ORC_TOKEN', data)
+        cookie.set('BAIDU_AI_TOKEN', data)
         resolve(data.access_token)
       }).catch(data => {
         reject(data)
