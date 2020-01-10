@@ -20,18 +20,24 @@ export const aiSpeech = (data = {}) => {
         method: 'POST',
         url: 'http://vop.baidu.com/server_api',
         absolute: true,
+        all: true,
+        custom: true,
         data: {
           format: 'pcm',
           rate: 16000,
-          dev_pid:1536,
-          channel:1,
+          dev_pid: 1536,
+          channel: 1,
           token: access_token,
           cuid: 'baidu_workshop',
-          len: 4096,
           ...data
         }
       }).then(data => {
-        resolve(data)
+        let _data = data['data']
+        if (_data['err_no'] === 0) {
+          resolve(data['data'])
+        } else {
+          reject(data['data'])
+        }
       })
     })
   })

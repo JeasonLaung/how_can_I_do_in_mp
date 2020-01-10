@@ -10,13 +10,57 @@ SPage({
     voiceTime: 0,
     voice: null,
     showVoice: false,
-    playVoiceTime: 0
+    playVoiceTime: 0,
+
+
+    result: ''
   },
+
+  bindchoose() {
+    let _this = this 
+    wx.chooseImage({
+      success({tempFilePaths}) {
+        console.log(tempFilePaths)
+        var soundSrc =  tempFilePaths[0]//base64编码
+        var fileManager = wx.getFileSystemManager()
+        var base64 = fileManager.readFileSync(soundSrc, "base64")
+        console.log(base64)
+        fileManager.getFileInfo({
+          filePath: soundSrc,
+          success(e) {
+            console.log(e)
+            
+            aiSpeech({speech: base64, len: e.size}).then(data => {
+              console.log(data)
+              console.log(data['result'])
+
+              _this.setData({
+                result: JSON.stringify(data['result'])
+              })
+            }).catch(e => {
+              console.error(e)
+              wx.showModal({
+                title: '识别失败',
+                content: e['err_msg'] || JSON.stringify(e)
+              })
+            })
+          }
+        })
+        
+      }
+    })
+    // aiSpeech({speech: base64, len: }).then(data => {
+    //   console.log(data)
+    // })
+  },
+
+
+
   bindtouchstart(e) {
     console.log('开始');
     let option = {
-      duration: 10000, //录音的时长，之前最大值好像只有1分钟，现在最长可以录音10分钟
-      format: 'mp3', //录音的格式，有aac和mp3两种   
+      sampleRate: 16000,
+      format: 'PCM', //录音的格式，有aac和mp3两种   
     }
     voiceReciver.start(option); //开始录音   这么写的话，之后录音得到的数据，就是你上面写得数据。
     wx.showLoading({
@@ -39,6 +83,7 @@ SPage({
     
   },
   bindtouchend(e) {
+    let _this = this
     wx.hideLoading()
     console.log('结束')
     voiceReciver.stop();
@@ -60,6 +105,11 @@ SPage({
       var base64 = fileManager.readFileSync(soundSrc, "base64")
       aiSpeech({speech: base64}).then(data => {
         console.log(data)
+        console.log(data['result'])
+
+        _this.setData({
+          result: data['result']
+        })
       })
     })
 
