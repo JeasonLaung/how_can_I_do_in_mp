@@ -22,13 +22,17 @@ export const aiSpeech = (data = {}) => {
         absolute: true,
         all: true,
         custom: true,
+        loading: true,
+        header: {
+          'Content-Type': 'application/json'
+        },
         data: {
-          format: 'pcm',
+          format: 'wav',
           rate: 16000,
           dev_pid: 1536,
           channel: 1,
           token: access_token,
-          cuid: 'baidu_workshop',
+          cuid: '605251963@qq.com',
           ...data
         }
       }).then(data => {

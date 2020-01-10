@@ -4,12 +4,21 @@
   选取录音测试【只适用电脑】
 </button>
 
-
+<button
+wx:if="{{voice != null}}"
+bindtap="playVoice">
+播放 {{playVoiceTime ? playVoiceTime : voiceTime}} / {{voiceTime}}
+</button>
+<button
+wx:else>0/0</button>
 
 
 <button
 bindtouchstart="bindtouchstart"
 bindtouchend="bindtouchend"
+bindtouchcancel="bindtouchcancel"
+bindtouchmove="bindtouchmove"
+id="speech"
 style="position:fixed;bottom:0;width: 100%"
 >
   长按说话
@@ -20,11 +29,7 @@ style="position:fixed;bottom:0;width: 100%"
 
 
 
-<button
-wx:if="{{voice != null}}"
-bindtap="playVoice">
-播放 {{playVoiceTime ? playVoiceTime : voiceTime}} / {{voiceTime}}
-</button>
+
 
 <i-message id="message"></i-message>
 <i-toast id="toast"></i-toast>
