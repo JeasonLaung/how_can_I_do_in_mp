@@ -1,6 +1,6 @@
 import axios from '../utils/axios'
 import cookie from '../utils/cookie.js'
-import { ACTION_RESPONSE, UPLOAD_PATH } from '../config/config'
+import { ACTION_RESPONSE, UPLOAD_PATH, SESSION_NAME } from '../config/config'
 
 /// formid保存
 export const action = (formId) => {
@@ -60,5 +60,46 @@ export const getAiToken = () => {
     } else {
       resolve(orc.access_token)
     }
+  })
+}
+
+/**
+ * @method GET
+ * @param {String} code
+ */
+export const login = (data = {}) => {
+  return new Promise((resolve, reject) => {
+    wx.login({
+      success({code}) {
+        return axios({
+          url: '/api/mp_login',
+          method: 'GET',
+          all: true,
+          data: {
+            code
+          }
+        }).then(data => {
+          console.log(data)
+          cookie.set(SESSION_NAME, data['header'][SESSION_NAME])
+          resolve(data)
+        }).catch(data => {
+          reject(data)
+        })
+      }
+    })
+  })
+
+}
+
+/**
+ * @method POST
+ * @param {String} iv 
+ * @param {String} encryptedData 
+ */
+export const decodeData = (data = {}) => {
+  return axios({
+    url: '/api/mp_decode',
+    method: 'POST',
+    data
   })
 }

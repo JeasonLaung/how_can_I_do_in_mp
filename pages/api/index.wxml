@@ -1,0 +1,16 @@
+<!--index.wxml-->
+
+
+<view>
+  <button
+  wx:for="{{list}}"
+  wx:key='index'
+  data-index="{{index}}"
+  style="margin-bottom: 20rpx"
+  bindtap="bindfunc">
+    {{item.title}}
+  </button>
+</view>
+
+<i-message id="message"></i-message>
+<i-toast id="toast"></i-toast>
